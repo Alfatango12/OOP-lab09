@@ -10,12 +10,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Random;
 
 /**
@@ -77,9 +77,8 @@ public class BadIOGUI {
         read.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                try (DataInputStream file = new DataInputStream(new FileInputStream(PATH))) {
-                    final int number = file.readInt();
-                    System.out.println("The number read is: " + number); //NOPMD
+                try {
+                    System.out.println(Files.readAllLines(Path.of(PATH), StandardCharsets.UTF_8)); //NOPMD
                 } catch (final IOException ex) {
                     JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace(); // NOPMD: allowed as this is just an exercise
