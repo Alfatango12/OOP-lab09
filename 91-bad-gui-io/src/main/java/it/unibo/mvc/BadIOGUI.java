@@ -15,11 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -81,9 +77,9 @@ public class BadIOGUI {
         read.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                try (final DataInputStream file = new DataInputStream(new FileInputStream(PATH))) {
-                    int number = file.readInt();
-                    System.out.println("The number read is: " + number);
+                try (DataInputStream file = new DataInputStream(new FileInputStream(PATH))) {
+                    final int number = file.readInt();
+                    System.out.println("The number read is: " + number); //NOPMD
                 } catch (final IOException ex) {
                     JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace(); // NOPMD: allowed as this is just an exercise
@@ -91,8 +87,6 @@ public class BadIOGUI {
             }
         });
     }
-
-    
 
     private void display() {
         /*
