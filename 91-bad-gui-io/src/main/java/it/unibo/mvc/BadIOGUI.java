@@ -10,11 +10,15 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 
@@ -43,9 +47,15 @@ public class BadIOGUI {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        //canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+        canvas.add(mainPanel, BorderLayout.CENTER);
+        mainPanel.add(write);
+        final JButton read = new JButton("Read from file");
+        mainPanel.add(read);
         /*
          * Handlers
          */
@@ -67,7 +77,22 @@ public class BadIOGUI {
                 }
             }
         });
+
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try (final DataInputStream file = new DataInputStream(new FileInputStream(PATH))) {
+                    int number = file.readInt();
+                    System.out.println("The number read is: " + number);
+                } catch (final IOException ex) {
+                    JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+        });
     }
+
+    
 
     private void display() {
         /*
@@ -88,6 +113,10 @@ public class BadIOGUI {
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
+        /*
+         * Resizes the gui to the minimum dimension
+         */
+        frame.pack();
         /*
          * OK, ready to push the frame onscreen
          */
