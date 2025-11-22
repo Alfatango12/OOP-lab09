@@ -11,49 +11,41 @@ import java.nio.charset.StandardCharsets;
 public final class Controller {
     private static final String DEFAULT_FILE_NAME = "output.txt";
 
-    private String filePath;
-    private final String systemSeparator;
-    private PrintStream filePrintStream;
+    private File file;
 
     /**
      * Constructor or fhe class.
      * Makes a file with default values.
-     * 
-     * @throws IOException required to open a new PrintStream.
      */
-    public Controller() throws IOException {
-        this.systemSeparator = System.getProperty("file.separator");
-        this.filePath = System.getProperty("user.home") + this.systemSeparator + DEFAULT_FILE_NAME;
-        this.filePrintStream = new PrintStream(this.filePath, StandardCharsets.UTF_8);
+    public Controller() {
+        this.file = new File(System.getProperty("user.home") + System.getProperty("file.separator") + DEFAULT_FILE_NAME);
     }
 
     /**
      * Method that opens a new file.
      * 
      * @param newFilePath The path of the file
-     * @throws IOException required to open a new PrintStream.
      */
-    public void setCurrentFile(final String newFilePath) throws IOException {
-        this.filePath = newFilePath;
-        this.filePrintStream = new PrintStream(this.filePath);
+    public void setCurrentFile(final String newFilePath) {
+        this.file = new File(newFilePath);
     }
 
     /**
      * Returns the current file as a PrintStream object.
      * 
-     * @return the PrintStream that represents the file.
+     * @return the file object.
      */
     public File getCurrentFile() {
-        return new File(this.filePath);
+        return this.file;
     }
 
     /**
      * Methods that return the current file path.
      * 
-     * @return the current file path
+     * @return the current file path.
      */
     public String getCurrentFilePath() {
-        return this.filePath;
+        return this.file.getPath();
     }
 
     /**
@@ -61,7 +53,9 @@ public final class Controller {
      * 
      * @param output the string to write to file.
      */
-    public void writeStringToFile(final String output) {
-        this.filePrintStream.println(output);
+    public void writeStringToFile(final String output) throws IOException {
+        final PrintStream ps = new PrintStream(file, StandardCharsets.UTF_8);
+        ps.println(output);
+        ps.close();
     }
 }
