@@ -1,5 +1,6 @@
 package it.unibo.mvc;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,21 +24,27 @@ public final class SimpleGUI {
         // Creating Componenets.
         final Controller controller = new SimpleController();
         final JPanel mainPanel = new JPanel();
-        final JTextField printedString = new JTextField();
+        final JPanel bottomPanel = new JPanel();
+        final JTextField stringToPrint = new JTextField();
         final JTextArea printedHistory = new JTextArea();
         final JButton print = new JButton("Print");
         final JButton show = new JButton("Show History");
         // Setting properties.
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(printedString, BorderLayout.NORTH);
+        mainPanel.add(stringToPrint, BorderLayout.NORTH);
         mainPanel.add(printedHistory, BorderLayout.CENTER);
-        mainPanel.add(print, BorderLayout.SOUTH);
-        mainPanel.add(show, BorderLayout.SOUTH);
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+        bottomPanel.add(print);
+        bottomPanel.add(show);
+        printedHistory.setEditable(false);
         // Event Listeners
         print.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                printedString.setText(controller.getNextString());
+                controller.setNextString(stringToPrint.getText());
+                controller.printCurrentString();
+                stringToPrint.setText("");
             }
         });
         show.addActionListener(new ActionListener() {
@@ -46,7 +53,7 @@ public final class SimpleGUI {
                 final var history = controller.getStringHistory();
                 printedHistory.setText("");
                 for (var elem : history) {
-                    printedHistory.append(elem);
+                    printedHistory.append(elem + "\n");
                 }
             }
         });
