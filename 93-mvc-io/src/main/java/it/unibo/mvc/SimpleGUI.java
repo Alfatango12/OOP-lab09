@@ -62,7 +62,7 @@ public final class SimpleGUI {
     }
 
     public static void main(final String[] args) {
-
+        new SimpleGUI().display();
     }
 
 }
