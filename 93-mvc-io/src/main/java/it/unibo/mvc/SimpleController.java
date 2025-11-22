@@ -67,11 +67,6 @@ public final class SimpleController implements Controller {
         } else {
             System.out.println(this.nextString); //NOPMD
             history.add(this.nextString);
-            unsetStringAfterPrint();
         }
-    }
-
-    private void unsetStringAfterPrint() {
-        this.nextString = UNSET_STRING;
     }
 }
