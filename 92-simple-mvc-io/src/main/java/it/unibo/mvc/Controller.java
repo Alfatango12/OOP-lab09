@@ -17,11 +17,12 @@ public class Controller {
     public Controller() throws IOException {
         this.systemSeparator = System.getProperty("file.separator");
         this.filePath = System.getProperty("user.home");
-        this.file = new PrintStream(this.filePath + DEFAULT_FILE_NAME, StandardCharsets.UTF_8);
+        this.file = new PrintStream(this.filePath + systemSeparator + DEFAULT_FILE_NAME, StandardCharsets.UTF_8);
     }
 
-    public void setCurrentFile() {
-
+    public void setCurrentFile(final String filePath) throws IOException {
+        this.filePath = filePath;
+        this.file = new PrintStream(this.filePath);
     }
 
     public PrintStream getCurrentFile() {
@@ -29,11 +30,11 @@ public class Controller {
     }
 
     public String getCurrentFilePath() {
-        return "";
+        return this.filePath;
     }
 
-    public void writeStringToFile() {
-
+    public void writeStringToFile(final String output) {
+        this.file.println(output);
     }
 
 }
