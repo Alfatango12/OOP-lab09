@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -49,7 +48,7 @@ public final class SimpleGUIWithFileChooser {
             public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.writeStringToFile(inputText.getText());
-                } catch(final IOException ex) {
+                } catch (final IOException ex) {
                     JOptionPane.showMessageDialog(frame, ex.getMessage(), "I/O Exception", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -62,9 +61,7 @@ public final class SimpleGUIWithFileChooser {
                 if (fcResult == JFileChooser.APPROVE_OPTION) {
                     controller.setCurrentFile(fc.getSelectedFile().toString());
                     filePath.setText(controller.getCurrentFilePath());
-                } else if (fcResult == JFileChooser.CANCEL_OPTION) {
-                    // Do Nothing
-                } else {
+                } else if (fcResult != JFileChooser.CANCEL_OPTION) {
                     JOptionPane.showMessageDialog(frame, "An Error Occurred", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
