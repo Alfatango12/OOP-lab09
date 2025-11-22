@@ -15,8 +15,10 @@ public final class Controller {
     private PrintStream file;
 
     /**
+     * Constructor or fhe class.
+     * Makes a file with default values.
      * 
-     * @throws IOException
+     * @throws IOException required to open a new PrintStream.
      */
     public Controller() throws IOException {
         this.systemSeparator = System.getProperty("file.separator");
@@ -25,34 +27,38 @@ public final class Controller {
     }
 
     /**
+     * Method that opens a new file.
      * 
-     * @param filePath
-     * @throws IOException
+     * @param newFilePath The path of the file
+     * @throws IOException required to open a new PrintStream.
      */
-    public void setCurrentFile(final String filePath) throws IOException {
-        this.filePath = filePath;
+    public void setCurrentFile(final String newFilePath) throws IOException {
+        this.filePath = newFilePath;
         this.file = new PrintStream(this.filePath);
     }
 
     /**
+     * Returns the current file as a PrintStream object.
      * 
-     * @return
+     * @return the PrintStream that represents the file.
      */
     public PrintStream getCurrentFile() {
         return this.file;
     }
 
     /**
+     * Methods that return the current file path.
      * 
-     * @return
+     * @return the current file path
      */
     public String getCurrentFilePath() {
         return this.filePath;
     }
 
     /**
+     * Writes a string to the current file.
      * 
-     * @param output
+     * @param output the string to write to file.
      */
     public void writeStringToFile(final String output) {
         this.file.println(output);
