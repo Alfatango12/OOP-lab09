@@ -54,8 +54,8 @@ public final class Controller {
      * @param output the string to write to file.
      */
     public void writeStringToFile(final String output) throws IOException {
-        final PrintStream ps = new PrintStream(file, StandardCharsets.UTF_8);
-        ps.println(output);
-        ps.close();
+        try (final PrintStream ps = new PrintStream(file, StandardCharsets.UTF_8)) {
+            ps.println(output);
+        }
     }
 }
