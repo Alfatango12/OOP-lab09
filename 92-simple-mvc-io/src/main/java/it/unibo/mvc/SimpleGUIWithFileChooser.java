@@ -17,7 +17,7 @@ public final class SimpleGUIWithFileChooser {
     private final Controller controller = new Controller();
 
     /**
-     * 
+     * Constructor that creates all the UI elements.
      */
     public SimpleGUIWithFileChooser() {
         final JPanel mainPanel = new JPanel();
@@ -41,7 +41,7 @@ public final class SimpleGUIWithFileChooser {
         this.frame.setContentPane(mainPanel);
     }
 
-    private void display()  {
+    private void display() {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setLocationByPlatform(true);
         this.frame.pack();
@@ -49,10 +49,11 @@ public final class SimpleGUIWithFileChooser {
     }
 
     /**
+     * Main funtion that starts a new UI.
      * 
      * @param args args passed in input.
      */
-    public static void main (final String[] args) {
+    public static void main(final String[] args) {
         new SimpleGUIWithFileChooser().display();
     }
 }
