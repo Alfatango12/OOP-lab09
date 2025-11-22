@@ -2,6 +2,7 @@ package it.unibo.mvc;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -12,7 +13,7 @@ public final class Controller {
 
     private String filePath;
     private final String systemSeparator;
-    private PrintStream file;
+    private PrintStream filePrintStream;
 
     /**
      * Constructor or fhe class.
@@ -22,8 +23,8 @@ public final class Controller {
      */
     public Controller() throws IOException {
         this.systemSeparator = System.getProperty("file.separator");
-        this.filePath = System.getProperty("user.home");
-        this.file = new PrintStream(this.filePath + systemSeparator + DEFAULT_FILE_NAME, StandardCharsets.UTF_8);
+        this.filePath = System.getProperty("user.home") + this.systemSeparator + DEFAULT_FILE_NAME;
+        this.filePrintStream = new PrintStream(this.filePath, StandardCharsets.UTF_8);
     }
 
     /**
@@ -34,7 +35,7 @@ public final class Controller {
      */
     public void setCurrentFile(final String newFilePath) throws IOException {
         this.filePath = newFilePath;
-        this.file = new PrintStream(this.filePath);
+        this.filePrintStream = new PrintStream(this.filePath);
     }
 
     /**
@@ -42,8 +43,8 @@ public final class Controller {
      * 
      * @return the PrintStream that represents the file.
      */
-    public PrintStream getCurrentFile() {
-        return this.file;
+    public File getCurrentFile() {
+        return new File(this.filePath);
     }
 
     /**
@@ -61,6 +62,6 @@ public final class Controller {
      * @param output the string to write to file.
      */
     public void writeStringToFile(final String output) {
-        this.file.println(output);
+        this.filePrintStream.println(output);
     }
 }
