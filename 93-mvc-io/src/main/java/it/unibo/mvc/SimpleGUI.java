@@ -52,7 +52,7 @@ public final class SimpleGUI {
             public void actionPerformed(final ActionEvent e) {
                 final var history = controller.getStringHistory();
                 printedHistory.setText("");
-                for (var elem : history) {
+                for (final var elem : history) {
                     printedHistory.append(elem + "\n");
                 }
             }
@@ -68,6 +68,11 @@ public final class SimpleGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Main method that make the gui alive.
+     * 
+     * @param args unused.
+     */
     public static void main(final String[] args) {
         new SimpleGUI().display();
     }

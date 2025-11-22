@@ -8,7 +8,6 @@ import java.util.List;
  * Implements the {@link Controller} interface. 
  */
 public final class SimpleController implements Controller {
-    private static final String UNSET_STRING = ""; 
     private String nextString;
     private final List<String> history = new LinkedList<>();
 
@@ -16,7 +15,7 @@ public final class SimpleController implements Controller {
      * Constructor with no arguments. It makes the string as unset by default.
      */
     public SimpleController() {
-        this.nextString = UNSET_STRING;
+        /* Made an empty constructor because the string can also be set after creation. */
     }
 
     /**
@@ -33,7 +32,7 @@ public final class SimpleController implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void setNextString(String nextString) {
+    public void setNextString(final String nextString) {
         if (nextString != null) {
             this.nextString = nextString;
         } else {
@@ -54,7 +53,7 @@ public final class SimpleController implements Controller {
      */
     @Override
     public List<String> getStringHistory() {
-        return this.history;
+        return List.copyOf(history);
     }
 
     /**
@@ -62,7 +61,7 @@ public final class SimpleController implements Controller {
      */
     @Override
     public void printCurrentString() {
-        if (this.nextString == null || this.nextString == UNSET_STRING) {
+        if (this.nextString == null) {
             throw new IllegalStateException("The next string cannot be unset");
         } else {
             System.out.println(this.nextString); //NOPMD

@@ -9,21 +9,21 @@ public interface Controller {
 
     /**
      * This function sets the new string to print.
-     * 
-     * @param nextString
+     *
+     * @param nextString The string to set as next to print.
      */
-    void setNextString(final String nextString);
-    
+    void setNextString(String nextString);
+
     /**
      * This function return the actual set string.
-     *  
+     * 
      * @return actual set string.
      */
     String getNextString();
 
     /**
      * Returns a list with the string history.
-     * 
+     *
      * @return a list that contains the printed string history.
      */
     List<String> getStringHistory();
