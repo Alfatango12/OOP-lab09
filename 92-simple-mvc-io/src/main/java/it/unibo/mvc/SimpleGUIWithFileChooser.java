@@ -1,9 +1,15 @@
 package it.unibo.mvc;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -37,7 +43,32 @@ public final class SimpleGUIWithFileChooser {
         fileChooserPanel.setVisible(true);
         filePath.setEditable(false);
         filePath.setText(controller.getCurrentFilePath());
-
+        // Button Listeners
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    controller.writeStringToFile(inputText.getText());
+                } catch(final IOException ex) {
+                    // TODO: Implement a panel to show the error
+                }
+            }
+        });
+        browseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final JFileChooser fc = new JFileChooser();
+                final int fcResult = fc.showOpenDialog(browseButton);
+                if (fcResult == JFileChooser.APPROVE_OPTION) {
+                    controller.setCurrentFile(fc.getSelectedFile().toString());
+                    filePath.setText(controller.getCurrentFilePath());
+                } else if (fcResult == JFileChooser.CANCEL_OPTION) {
+                    // Do Nothing
+                } else {
+                    JOptionPane.showMessageDialog(frame, "An Error Occurred", "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
         this.frame.setContentPane(mainPanel);
     }
 
