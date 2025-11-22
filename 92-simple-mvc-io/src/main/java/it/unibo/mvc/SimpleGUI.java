@@ -2,6 +2,7 @@ package it.unibo.mvc;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
@@ -33,8 +34,7 @@ public final class SimpleGUI {
                 try {
                     controller.writeStringToFile(inputText.getText());
                 } catch (final IOException ex) {
-                    // This could be a JDIalog showing the error.
-                    System.out.println(ex.getMessage()); //NOPMD
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "I/O Exception", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

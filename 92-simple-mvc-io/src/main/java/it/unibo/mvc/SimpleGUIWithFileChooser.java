@@ -50,7 +50,7 @@ public final class SimpleGUIWithFileChooser {
                 try {
                     controller.writeStringToFile(inputText.getText());
                 } catch(final IOException ex) {
-                    // TODO: Implement a panel to show the error
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "I/O Exception", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
