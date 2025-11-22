@@ -7,7 +7,6 @@ import javax.swing.JFrame;
  * 
  */
 public final class SimpleGUI {
-
     private final JFrame frame = new JFrame();
 
 }
