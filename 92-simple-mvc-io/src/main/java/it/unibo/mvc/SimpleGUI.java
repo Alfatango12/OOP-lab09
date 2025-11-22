@@ -11,12 +11,15 @@ import java.io.IOException;
 
 /**
  * A very simple program using a graphical interface.
- * 
  */
 public final class SimpleGUI {
     private final JFrame frame = new JFrame();
     private final Controller controller = new Controller();
 
+    /**
+     * Constructor method.
+     * It creates the whole gui.
+     */
     public SimpleGUI() {
         final JButton saveButton = new JButton("Save");
         final JTextArea inputText = new JTextArea();
@@ -29,9 +32,9 @@ public final class SimpleGUI {
             public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.writeStringToFile(inputText.getText());
-                } catch (IOException e1) {
+                } catch (final IOException ex) {
                     // This could be a JDIalog showing the error.
-                    System.out.println(e1.getStackTrace()); //NOMPD
+                    System.out.println(ex.getMessage()); //NOPMD
                 }
             }
         });
@@ -44,7 +47,12 @@ public final class SimpleGUI {
         frame.setVisible(true);
     }
 
-    public static void main(String args[]) {
+    /**
+     * Main function. It calls the method that starts the gui.
+     * 
+     * @param args main arguments passed by command line.
+     */
+    public static void main(final String[] args) {
         new SimpleGUI().display();
     }
 }
