@@ -50,6 +50,8 @@ public final class SimpleController implements Controller {
 
     /**
      * {@inheritDoc}
+     * 
+     * @return it returns a defensive copy of the original list.
      */
     @Override
     public List<String> getStringHistory() {
